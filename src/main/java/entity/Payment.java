@@ -1,4 +1,46 @@
 package entity;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.util.Date;
+
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@Table(name = "payment", schema = "movie")
 public class Payment {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "payment_id")
+    private Integer payment_id;
+
+    @Column(name = "customer_id", nullable = false)
+    private Integer customer_id;
+
+    @Column(name = "staff_id",nullable = false)
+    private Integer staff_id;
+
+
+    @Column(name = "rental_id", nullable = false)
+    private Integer rental_id;
+
+
+    @Column(name = "amount", nullable = false)
+    private Double amount;
+
+    @Column(name = "payment_date", nullable = false)
+    @CreationTimestamp
+    private Date payment_date;
+
+    @Column(name = "last_update", nullable = false)
+    @UpdateTimestamp
+    private Date lastUpdate;
 }

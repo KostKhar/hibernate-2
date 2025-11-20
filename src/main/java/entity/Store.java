@@ -13,7 +13,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Table(name = "store", schema = "test")
+@Table(name = "store", schema = "movie")
 public class Store {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

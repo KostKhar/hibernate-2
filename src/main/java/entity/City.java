@@ -13,7 +13,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Table(name = "city", schema = "test")
+@Table(name = "city", schema = "movie")
 public class City {
 
     @Id

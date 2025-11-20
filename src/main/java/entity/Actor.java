@@ -14,7 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Table(name = "actor", schema = "test")
+@Table(name = "actor", schema = "movie")
 public class Actor {
 
     @Id
