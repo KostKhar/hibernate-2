@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -42,7 +43,7 @@ public class Address {
 
     @Column(name = "last_update", nullable = false)
     @UpdateTimestamp
-    private Date lastUpdate;
+    private LocalDateTime lastUpdate;
 
 
 

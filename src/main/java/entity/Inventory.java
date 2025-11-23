@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -28,5 +30,5 @@ public class Inventory {
 
     @Column(name = "last_update", nullable = false)
     @UpdateTimestamp
-    private String lastUpdate;
+    private LocalDateTime lastUpdate;
 }

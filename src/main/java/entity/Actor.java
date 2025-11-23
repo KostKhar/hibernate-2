@@ -8,6 +8,8 @@ import lombok.ToString;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -31,4 +33,7 @@ public class Actor {
     @Column(name = "last_update", nullable = false)
     @UpdateTimestamp
     private Date lastUpdate;
+
+    @OneToMany(mappedBy = "actor")
+    private Set<FilmActor> filmActors = new HashSet<>();
 }

@@ -16,7 +16,10 @@ public class FilmText {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "film_id")
-    private int film_id;
+    private Integer film_id;
+
+    @OneToOne(mappedBy = "film_id")
+    private Film film;
 
     @Column(name = "title", nullable = false, length = 255)
     private String title;

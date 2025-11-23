@@ -1,48 +1,67 @@
 package entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Table(name = "film", schema = "movie")
 public class Film {
 
+    @Setter
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "film_id")
     private int film_id;
 
-    @Column(name = "title", nullable = false, length = 120)
+    @Setter
+    @Getter
+    @Column(name = "title", nullable = false, length = 128)
     private String title;
 
-    @Column(name = "description")
+    @Setter
+    @Getter
+    @Column(name = "description", columnDefinition = "text")
     private String description;
 
+    @Setter
+    @Getter
     @Column(name = "release_year")
-    private Date release_year;
+    private LocalDate release_year;
 
-    @Column(name = "language_id",  nullable = false)
-    private Byte language_id;
+    @Setter
+    @Getter
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "language_id")
+    private Language language_id;
 
-    @Column(name = "original_language_id")
-    private Byte original_language_id;
+    @Setter
+    @Getter
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "language_id")
+    private Language original_language_id;
 
+    @Setter
+    @Getter
     @Column(name = "rental_duration")
     private Byte rental_duration;
 
+    @Setter
+    @Getter
     @Column(name = "rental_rate")
     private Double rental_rate;
 
+    @Setter
+    @Getter
     @Column(name = "length", nullable = false)
     private Integer length;
 
@@ -72,8 +91,28 @@ public class Film {
         this.specialFeatures = feature != null ? feature.getDbValue() : null;
     }
 
+    @Setter
+    @Getter
+    @OneToMany(mappedBy = "film")
+    private Set<FilmActor> filmActors = new HashSet<>();
 
+    @Setter
+    @Getter
+    @OneToMany(mappedBy = "film",  cascade = CascadeType.ALL)
+    private Set<FilmActor> filmCategory = new HashSet<>();
+
+    @Setter
+    @Getter
     @Column(name = "last_update", nullable = false)
     @UpdateTimestamp
-    private Date lastUpdate;
+    private LocalDateTime lastUpdate;
+
+    @OneToOne
+    @JoinTable(
+            name = "film_text",
+            joinColumns = @JoinColumn(name = "film_id"),
+            inverseJoinColumns = @JoinColumn(name = "film_id")
+    )
+    private FilmText filmText;
+
 }

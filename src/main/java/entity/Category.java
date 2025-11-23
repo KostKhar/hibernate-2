@@ -7,6 +7,10 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -24,5 +28,9 @@ public class Category {
 
     @Column(name = "last_update", nullable = false)
     @UpdateTimestamp
-    private String lastUpdate;
+    private LocalDateTime lastUpdate;
+
+    @OneToMany(mappedBy = "category",  cascade = CascadeType.ALL)
+    private Set<FilmActor> categoryFilm = new HashSet<>();
+
 }

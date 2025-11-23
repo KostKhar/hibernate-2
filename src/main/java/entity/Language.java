@@ -8,7 +8,10 @@ import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -27,5 +30,11 @@ public class Language {
 
     @Column(name = "last_update", nullable = false)
     @UpdateTimestamp
-    private Date lastUpdate;
+    private LocalDateTime lastUpdate;
+
+    @OneToMany(mappedBy = "language")
+    private Set<Film> films = new HashSet<>();
+
+    @OneToMany(mappedBy = "original_language")
+    private Set<Film> filmsAsOriginal = new HashSet<>();
 }
