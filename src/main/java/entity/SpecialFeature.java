@@ -13,10 +13,6 @@ public enum SpecialFeature {
         this.dbValue = dbValue;
     }
 
-    public String getDbValue() {
-        return dbValue;
-    }
-
     public static SpecialFeature fromDbValue(String dbValue) {
         if (dbValue == null) return null;
 
@@ -26,5 +22,9 @@ public enum SpecialFeature {
             }
         }
         throw new IllegalArgumentException("Unknown feature: " + dbValue);
+    }
+
+    public String getDbValue() {
+        return dbValue;
     }
 }

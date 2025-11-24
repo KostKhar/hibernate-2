@@ -8,7 +8,6 @@ import lombok.ToString;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -21,7 +20,7 @@ public class Actor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id",  unique = true, nullable = false)
+    @Column(name = "id", unique = true, nullable = false)
     private Integer actor_id;
 
     @Column(name = "first_name", length = 45, nullable = false)

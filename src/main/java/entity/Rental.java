@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
@@ -31,7 +30,7 @@ public class Rental {
     private Date rental_date;
 
     @OneToMany
-    @JoinColumn(name = "inventory_id",nullable = false)
+    @JoinColumn(name = "inventory_id", nullable = false)
     private Set<Inventory> inventory;
 
     @OneToMany

@@ -13,10 +13,6 @@ public enum Rating {
         this.dbValue = dbValue;
     }
 
-    public String getDbValue() {
-        return dbValue;
-    }
-
     public static Rating fromDbValue(String dbValue) {
         if (dbValue == null) return null;
 
@@ -26,5 +22,9 @@ public enum Rating {
             }
         }
         throw new IllegalArgumentException("Unknown rating: " + dbValue);
+    }
+
+    public String getDbValue() {
+        return dbValue;
     }
 }

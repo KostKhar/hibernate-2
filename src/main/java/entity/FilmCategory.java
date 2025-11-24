@@ -8,8 +8,6 @@ import lombok.ToString;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -21,7 +19,7 @@ import java.util.Set;
 public class FilmCategory {
     @Id
     @Column(name = "film_id", insertable = false, updatable = false)
-    private  Integer film_id;
+    private Integer film_id;
 
     @Id
     @Column(name = "category_id", insertable = false, updatable = false)

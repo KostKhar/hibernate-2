@@ -23,7 +23,7 @@ public class Address {
     @Column(name = "address_id")
     private Long address_id;
 
-    @Column(name = "address", length = 50,  nullable = false)
+    @Column(name = "address", length = 50, nullable = false)
     private String address;
 
     @Column(name = "address2", length = 50)
@@ -39,13 +39,12 @@ public class Address {
     @Column(name = "postal_code", length = 10)
     private String postalCode;
 
-    @Column(name = "phone", length = 20,  nullable = false)
+    @Column(name = "phone", length = 20, nullable = false)
     private String phone;
 
     @Column(name = "last_update", nullable = false)
     @UpdateTimestamp
     private LocalDateTime lastUpdate;
-
 
 
 }
