@@ -9,6 +9,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -18,23 +20,25 @@ import java.util.Date;
 @Table(name = "film_category", schema = "movie")
 public class FilmCategory {
     @Id
-    @Column(name = "film_id")
-    private int film_id;
+    @Column(name = "film_id", insertable = false, updatable = false)
+    private  Integer film_id;
 
     @Id
-    @Column(name = "category_id")
-    private int category_id;
+    @Column(name = "category_id", insertable = false, updatable = false)
+    private Integer category_id;
 
     @Column(name = "last_update", nullable = false)
     @UpdateTimestamp
     private LocalDateTime lastUpdate;
 
-    @ManyToOne
-    @JoinColumn(name = "film_id", insertable = false, updatable = false)
-    private Film film;
+    @ManyToMany
+    @JoinTable(name = "film_category",
+            joinColumns = @JoinColumn(name = "category_id"),
+            inverseJoinColumns = @JoinColumn(name = "film_id"))
+    private Set<Film> films;
 
-    @ManyToOne
+    @ManyToMany
     @JoinColumn(name = "category_id", insertable = false, updatable = false)
-    private Category category;
+    private Set<Category> categories;
 
 }

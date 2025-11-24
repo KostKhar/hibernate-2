@@ -22,7 +22,6 @@ public class Country {
     @Column(name = "country_id")
     private Long country_id;
 
-
     @Column(name = "country", length = 50, nullable = false)
     private String country;
 

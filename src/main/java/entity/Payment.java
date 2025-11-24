@@ -8,8 +8,10 @@ import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.lang.reflect.InaccessibleObjectException;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Data
@@ -20,19 +22,20 @@ import java.util.Date;
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "payment_id")
+    @Column(name = "payment_id", unique = true, nullable = false)
     private Integer payment_id;
 
-    @Column(name = "customer_id", nullable = false)
-    private Integer customer_id;
+    @OneToMany
+    @JoinColumn(name = "customer_id", nullable = false)
+    private Set<Customer> customer;
 
-    @Column(name = "staff_id",nullable = false)
-    private Integer staff_id;
+    @OneToMany
+    @JoinColumn(name = "staff_id", nullable = false)
+    private Set<Staff> staff;
 
-
-    @Column(name = "rental_id", nullable = false)
-    private Integer rental_id;
-
+    @OneToOne
+    @JoinColumn(name = "rental_id", nullable = false)
+    private Rental rental;
 
     @Column(name = "amount", nullable = false)
     private Double amount;

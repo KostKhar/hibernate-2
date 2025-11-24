@@ -19,14 +19,16 @@ import java.time.LocalDateTime;
 public class Inventory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "inventory_id")
-    private Long inventory_id;
+    @Column(name = "inventory_id", unique = true, nullable = false)
+    private Integer inventory_id;
 
-    @Column(name = "film_id", nullable = false)
-    private Byte film_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "film_id", nullable = false)
+    private Film film;
 
-    @Column(name = "store_id", length = 50, nullable = false)
-    private String store_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id", nullable = false)
+    private Store store;
 
     @Column(name = "last_update", nullable = false)
     @UpdateTimestamp

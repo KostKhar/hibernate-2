@@ -10,6 +10,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Data
@@ -20,11 +21,12 @@ import java.util.Date;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "customer_id")
+    @Column(name = "customer_id", unique = true, nullable = false)
     private int customer_id;
 
-    @Column(name = "store_id", nullable = false)
-    private int store_id;
+    @OneToMany
+    @JoinColumn(name = "store_id", nullable = false)
+    private Set<Store> store;
 
     @Column(name = "first_name", length = 45, nullable = false)
     private String firstName;
@@ -35,8 +37,9 @@ public class Customer {
     @Column(name = "email", length = 50, nullable = false)
     private String email;
 
-    @Column(name = "address_id", nullable = false)
-    private Integer address_id;
+    @OneToMany
+    @JoinColumn(name = "address_id", nullable = false)
+    private Set<Address> address;
 
     @Column(name = "active", nullable = false, length = 1)
     private boolean active;

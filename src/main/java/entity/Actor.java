@@ -22,7 +22,7 @@ public class Actor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id",  unique = true, nullable = false)
-    private Integer id;
+    private Integer actor_id;
 
     @Column(name = "first_name", length = 45, nullable = false)
     private String firstName;
@@ -34,6 +34,9 @@ public class Actor {
     @UpdateTimestamp
     private Date lastUpdate;
 
-    @OneToMany(mappedBy = "actor")
-    private Set<FilmActor> filmActors = new HashSet<>();
+    @ManyToMany
+    @JoinTable(name = "film_actor",
+            joinColumns = @JoinColumn(name = "actor_id"),
+            inverseJoinColumns = @JoinColumn(name = "film_id"))
+    private Set<Film> films;
 }

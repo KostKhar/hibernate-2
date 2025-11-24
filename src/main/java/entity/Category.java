@@ -30,7 +30,9 @@ public class Category {
     @UpdateTimestamp
     private LocalDateTime lastUpdate;
 
-    @OneToMany(mappedBy = "category",  cascade = CascadeType.ALL)
-    private Set<FilmActor> categoryFilm = new HashSet<>();
-
+    @ManyToMany
+    @JoinTable(name = "film_category",
+            joinColumns = @JoinColumn(name = "category_id"),
+            inverseJoinColumns = @JoinColumn(name = "film_id"))
+    private Set<Film> films;
 }

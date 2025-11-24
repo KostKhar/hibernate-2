@@ -20,7 +20,7 @@ public class Film {
     @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "film_id")
+    @Column(name = "film_id", unique = true, nullable = false)
     private int film_id;
 
     @Setter
@@ -42,13 +42,13 @@ public class Film {
     @Getter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "language_id")
-    private Language language_id;
+    private Language language;
 
     @Setter
     @Getter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "language_id")
-    private Language original_language_id;
+    private Language original_language;
 
     @Setter
     @Getter
@@ -114,5 +114,18 @@ public class Film {
             inverseJoinColumns = @JoinColumn(name = "film_id")
     )
     private FilmText filmText;
+
+
+    @ManyToMany
+    @JoinTable(name = "film_actor",
+            joinColumns = @JoinColumn(name = "film_id"),
+            inverseJoinColumns = @JoinColumn(name = "actor_id"))
+    private Set<Actor> actors;
+
+    @ManyToMany
+    @JoinTable(name = "film_category",
+            joinColumns = @JoinColumn(name = "film_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private Set<Category> category;
 
 }

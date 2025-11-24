@@ -13,11 +13,8 @@ import lombok.ToString;
 @ToString
 @Table(name = "film_text", schema = "movie")
 public class FilmText {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "film_id")
-    private Integer film_id;
 
+    @Id
     @OneToOne(mappedBy = "film_id")
     private Film film;
 

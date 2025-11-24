@@ -1,9 +1,6 @@
 package entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jdk.jfr.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,6 +11,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Set;
 
 
 @Entity
@@ -27,23 +25,27 @@ public class Rental {
     @Column(name = "rental_id")
     private Integer rental_id;
 
+
     @Column(name = "rental_date", nullable = false)
     @Timestamp
     private Date rental_date;
 
-    @Column(name = "inventory_id",nullable = false)
-    private Integer inventory_id;
+    @OneToMany
+    @JoinColumn(name = "inventory_id",nullable = false)
+    private Set<Inventory> inventory;
 
-    @Column(name = "customer_id", nullable = false)
-    private Integer customer_id;
+    @OneToMany
+    @JoinColumn(name = "customer_id", nullable = false)
+    private Set<Customer> customer;
 
 
     @Column(name = "return_date", nullable = false)
     @Timestamp
     private Date return_date;
 
-    @Column(name = "staff_id", nullable = false)
-    private Integer staff_id;
+    @OneToMany
+    @JoinColumn(name = "staff_id", nullable = false)
+    private Set<Staff> staff;
 
     @Column(name = "last_update", nullable = false)
     @UpdateTimestamp

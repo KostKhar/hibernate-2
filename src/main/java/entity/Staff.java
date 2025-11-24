@@ -28,8 +28,9 @@ public class Staff {
     @Column(name = "last_name", length = 45, nullable = false)
     private String lastName;
 
-    @Column(name = "address_id", length = 50, nullable = false)
-    private String address_id;
+    @OneToOne
+    @JoinColumn(name = "address_id", length = 50, nullable = false)
+    private Address address;
 
     @Column(name = "picture")
     private Byte[] picture;
@@ -37,8 +38,9 @@ public class Staff {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "store_id")
-    private Long store_id;
+    @OneToOne
+    @JoinColumn(name = "store_id")
+    private Store store;
 
     @Column(name = "username", length = 16, nullable = false)
     private String username;

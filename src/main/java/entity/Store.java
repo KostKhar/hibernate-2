@@ -22,11 +22,13 @@ public class Store {
     @Column(name = "store_id")
     private Long store_id;
 
-    @Column(name = "manager_staff_id", nullable = false)
-    private Byte manager_staff_id;
+    @OneToOne
+    @JoinColumn(name = "manager_staff_id")
+    private Staff manager_staff_id;
 
-    @Column(name = "address_id", length = 50, nullable = false)
-    private String address_id;
+    @OneToOne
+    @JoinColumn(name="address_id")
+    private Address address;
 
     @Column(name = "last_update", nullable = false)
     @UpdateTimestamp

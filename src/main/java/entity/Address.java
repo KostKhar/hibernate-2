@@ -8,7 +8,7 @@ import lombok.ToString;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Data
@@ -29,11 +29,12 @@ public class Address {
     @Column(name = "address2", length = 50)
     private String address2;
 
-    @Column(name = "district", length = 20,   nullable = false)
+    @Column(name = "district", length = 20, nullable = false)
     private String district;
 
-    @Column(name = "city_id", nullable = false)
-    private Integer cityId;
+    @OneToMany
+    @JoinColumn(name = "city_id", nullable = false)
+    private Set<City> city;
 
     @Column(name = "postal_code", length = 10)
     private String postalCode;

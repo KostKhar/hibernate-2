@@ -22,7 +22,7 @@ import java.util.Set;
 public class Language {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "language_id")
+    @Column(name = "language_id", unique = true, nullable = false)
     private Integer language_id;
 
     @Column(name = "name", nullable = false)
@@ -32,9 +32,9 @@ public class Language {
     @UpdateTimestamp
     private LocalDateTime lastUpdate;
 
-    @OneToMany(mappedBy = "language")
+    @OneToMany(mappedBy = "language_id")
     private Set<Film> films = new HashSet<>();
 
-    @OneToMany(mappedBy = "original_language")
+    @OneToMany(mappedBy = "original_language_id")
     private Set<Film> filmsAsOriginal = new HashSet<>();
 }

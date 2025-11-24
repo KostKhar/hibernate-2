@@ -9,6 +9,7 @@ import lombok.ToString;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Data
@@ -23,8 +24,9 @@ public class City {
     @Column(name = "city_id")
     private Long city_id;
 
-    @Column(name = "country_id", length = 50, nullable = false)
-    private Long country_id;
+    @OneToMany
+    @JoinColumn(name = "country_id")
+    private Set<Country> country;
 
     @Column(name = "city", length = 50, nullable = false)
     private String city;
