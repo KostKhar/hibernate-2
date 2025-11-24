@@ -28,7 +28,7 @@ public class Staff {
     private String lastName;
 
     @OneToOne
-    @JoinColumn(name = "address_id", length = 50, nullable = false)
+    @JoinColumn(name = "address_id")
     private Address address;
 
     @Column(name = "picture")
