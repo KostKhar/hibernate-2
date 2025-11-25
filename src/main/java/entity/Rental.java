@@ -18,33 +18,30 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Table(name = "payment", schema = "movie")
+@Table(name = "rental", schema = "movie")
 public class Rental {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "rental_id")
     private Integer rental_id;
 
-
     @Column(name = "rental_date", nullable = false)
-    @Timestamp
-    private Date rental_date;
+    private LocalDateTime rentalDate;
 
-    @OneToMany
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "inventory_id", nullable = false)
-    private Set<Inventory> inventory;
+    private Inventory inventory;
 
-    @OneToMany
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "customer_id", nullable = false)
-    private Set<Customer> customer;
+    private Customer customer;
 
-
-    @Column(name = "return_date", nullable = false)
-    @Timestamp
-    private Date return_date;
-
-    @OneToMany
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "staff_id", nullable = false)
-    private Set<Staff> staff;
+    private Staff staff;
+
+    @Column(name = "return_date")
+    private LocalDateTime returnDate;
 
     @Column(name = "last_update", nullable = false)
     @UpdateTimestamp

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -17,26 +18,33 @@ import java.util.Set;
 @ToString
 @Table(name = "film_category", schema = "movie")
 public class FilmCategory {
-    @Id
-    @Column(name = "film_id", insertable = false, updatable = false)
-    private Integer film_id;
+    @EmbeddedId
+    private FilmCategoryId id;
 
-    @Id
-    @Column(name = "category_id", insertable = false, updatable = false)
-    private Integer category_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("film_id")
+    @JoinColumn(name = "film_id", insertable = false, updatable = false)
+    private Film film;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("category_id")
+    @JoinColumn(name = "category_id", insertable = false, updatable = false)
+    private Category category;
 
     @Column(name = "last_update", nullable = false)
     @UpdateTimestamp
     private LocalDateTime lastUpdate;
 
-    @ManyToMany
-    @JoinTable(name = "film_category",
-            joinColumns = @JoinColumn(name = "category_id"),
-            inverseJoinColumns = @JoinColumn(name = "film_id"))
-    private Set<Film> films;
+    @Embeddable
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public class FilmCategoryId implements Serializable {
+        @Column(name = "film_id", insertable = false, updatable = false)
+        private Integer film_id;
 
-    @ManyToMany
-    @JoinColumn(name = "category_id", insertable = false, updatable = false)
-    private Set<Category> categories;
+        @Column(name = "category_id", insertable = false, updatable = false)
+        private Integer category_id;
+    }
 
 }

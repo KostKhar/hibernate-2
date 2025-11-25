@@ -1,6 +1,7 @@
 package entity;
 
 import jakarta.persistence.*;
+import jdk.jfr.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,13 +25,13 @@ public class Payment {
     @Column(name = "payment_id", unique = true, nullable = false)
     private Integer payment_id;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
-    private Set<Customer> customer;
+    private Customer customer;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "staff_id", nullable = false)
-    private Set<Staff> staff;
+    private Staff staff;
 
     @OneToOne
     @JoinColumn(name = "rental_id", nullable = false)
@@ -41,7 +42,7 @@ public class Payment {
 
     @Column(name = "payment_date", nullable = false)
     @CreationTimestamp
-    private Date payment_date;
+    private LocalDateTime paymentDate;
 
     @Column(name = "last_update", nullable = false)
     @UpdateTimestamp

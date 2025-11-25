@@ -13,9 +13,13 @@ import lombok.ToString;
 @ToString
 @Table(name = "film_text", schema = "movie")
 public class FilmText {
-
     @Id
-    @OneToOne(mappedBy = "film_id")
+    @Column(name = "film_id")
+    private Integer filmId;
+
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "film_id")
     private Film film;
 
     @Column(name = "title", nullable = false, length = 255)

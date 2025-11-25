@@ -6,7 +6,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -47,8 +46,8 @@ public class Film {
     @Setter
     @Getter
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "language_id")
-    private Language original_language;
+    @JoinColumn(name = "original_language_id")
+    private Language originalLanguage;
 
     @Setter
     @Getter
@@ -67,38 +66,6 @@ public class Film {
 
     @Column(name = "rating", columnDefinition = "ENUM('G', 'PG', 'PG-13', 'R', 'NC-17')")
     private String rating;
-    @Column(name = "special_features", columnDefinition = "ENUM('Trailers', 'Commentaries', 'Deleted Scenes', 'Behind the Scenes')")
-    private String specialFeatures;
-    @Setter
-    @Getter
-    @OneToMany(mappedBy = "film")
-    private Set<FilmActor> filmActors = new HashSet<>();
-    @Setter
-    @Getter
-    @OneToMany(mappedBy = "film", cascade = CascadeType.ALL)
-    private Set<FilmActor> filmCategory = new HashSet<>();
-    @Setter
-    @Getter
-    @Column(name = "last_update", nullable = false)
-    @UpdateTimestamp
-    private LocalDateTime lastUpdate;
-    @OneToOne
-    @JoinTable(
-            name = "film_text",
-            joinColumns = @JoinColumn(name = "film_id"),
-            inverseJoinColumns = @JoinColumn(name = "film_id")
-    )
-    private FilmText filmText;
-    @ManyToMany
-    @JoinTable(name = "film_actor",
-            joinColumns = @JoinColumn(name = "film_id"),
-            inverseJoinColumns = @JoinColumn(name = "actor_id"))
-    private Set<Actor> actors;
-    @ManyToMany
-    @JoinTable(name = "film_category",
-            joinColumns = @JoinColumn(name = "film_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Set<Category> category;
 
     public Rating getRating() {
         return Rating.fromDbValue(rating);
@@ -108,16 +75,38 @@ public class Film {
         this.rating = rating != null ? rating.getDbValue() : null;
     }
 
-    public String getRatingValue() {
-        return rating;
-    }
+
+    @Column(name = "special_features", columnDefinition = "ENUM('Trailers', 'Commentaries', 'Deleted Scenes', 'Behind the Scenes')")
+    private String specialFeatures;
 
     public SpecialFeature getSpecialFeatures() {
         return SpecialFeature.fromDbValue(specialFeatures);
     }
 
-    public void setSpecialFeatures(SpecialFeature feature) {
-        this.specialFeatures = feature != null ? feature.getDbValue() : null;
+    public void setSpecialFeatures(SpecialFeature specialFeatures) {
+        this.specialFeatures = rating != null ? specialFeatures.getDbValue() : null;
     }
+
+    @Setter
+    @Getter
+    @Column(name = "last_update", nullable = false)
+    @UpdateTimestamp
+    private LocalDateTime lastUpdate;
+
+    @OneToOne
+    @PrimaryKeyJoinColumn(name = "film_id")
+    private FilmText filmText;
+
+    @ManyToMany
+    @JoinTable(name = "film_actor",
+            joinColumns = @JoinColumn(name = "film_id"),
+            inverseJoinColumns = @JoinColumn(name = "actor_id"))
+    private Set<Actor> actors;
+
+    @ManyToMany
+    @JoinTable(name = "film_category",
+            joinColumns = @JoinColumn(name = "film_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private Set<Category> category;
 
 }

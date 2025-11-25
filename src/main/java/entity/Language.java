@@ -30,9 +30,9 @@ public class Language {
     @UpdateTimestamp
     private LocalDateTime lastUpdate;
 
-    @OneToMany(mappedBy = "language_id")
-    private Set<Film> films = new HashSet<>();
+    @OneToMany(mappedBy = "language")
+    private Set<Film> films;
 
-    @OneToMany(mappedBy = "original_language_id")
-    private Set<Film> filmsAsOriginal = new HashSet<>();
+    @OneToMany(mappedBy = "originalLanguage")
+    private Set<Film> filmsAsOriginal;
 }
