@@ -22,7 +22,7 @@ public class FilmText {
     @JoinColumn(name = "film_id")
     private Film film;
 
-    @Column(name = "title", nullable = false, length = 255)
+    @Column(name = "title", nullable = false)
     private String title;
 
     @Column(name = "description")
