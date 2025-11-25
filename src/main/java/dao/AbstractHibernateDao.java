@@ -10,12 +10,12 @@ public abstract class AbstractHibernateDao<T> {
     private final Class<T> clazz;
     private SessionFactory sessionFactory;
 
-    public AbstractHibernateDao(final Class<T> clazzToSet)   {
+    public AbstractHibernateDao(final Class<T> clazzToSet) {
         this.clazz = clazzToSet;
     }
 
     public T getById(final Long id) {
-        return (T) getCurrentSession().get(clazz, id);
+        return getCurrentSession().get(clazz, id);
     }
 
     public List<T> getItems(int from, int count) {
@@ -35,7 +35,7 @@ public abstract class AbstractHibernateDao<T> {
     }
 
     public T update(final T entity) {
-        return (T) getCurrentSession().merge(entity);
+        return getCurrentSession().merge(entity);
     }
 
     public void delete(final T entity) {

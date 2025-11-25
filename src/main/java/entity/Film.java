@@ -66,6 +66,26 @@ public class Film {
 
     @Column(name = "rating", columnDefinition = "ENUM('G', 'PG', 'PG-13', 'R', 'NC-17')")
     private String rating;
+    @Column(name = "special_features", columnDefinition = "ENUM('Trailers', 'Commentaries', 'Deleted Scenes', 'Behind the Scenes')")
+    private String specialFeatures;
+    @Setter
+    @Getter
+    @Column(name = "last_update", nullable = false)
+    @UpdateTimestamp
+    private LocalDateTime lastUpdate;
+    @OneToOne
+    @PrimaryKeyJoinColumn(name = "film_id")
+    private FilmText filmText;
+    @ManyToMany
+    @JoinTable(name = "film_actor",
+            joinColumns = @JoinColumn(name = "film_id"),
+            inverseJoinColumns = @JoinColumn(name = "actor_id"))
+    private Set<Actor> actors;
+    @ManyToMany
+    @JoinTable(name = "film_category",
+            joinColumns = @JoinColumn(name = "film_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private Set<Category> category;
 
     public Rating getRating() {
         return Rating.fromDbValue(rating);
@@ -75,10 +95,6 @@ public class Film {
         this.rating = rating != null ? rating.getDbValue() : null;
     }
 
-
-    @Column(name = "special_features", columnDefinition = "ENUM('Trailers', 'Commentaries', 'Deleted Scenes', 'Behind the Scenes')")
-    private String specialFeatures;
-
     public SpecialFeature getSpecialFeatures() {
         return SpecialFeature.fromDbValue(specialFeatures);
     }
@@ -86,27 +102,5 @@ public class Film {
     public void setSpecialFeatures(SpecialFeature specialFeatures) {
         this.specialFeatures = rating != null ? specialFeatures.getDbValue() : null;
     }
-
-    @Setter
-    @Getter
-    @Column(name = "last_update", nullable = false)
-    @UpdateTimestamp
-    private LocalDateTime lastUpdate;
-
-    @OneToOne
-    @PrimaryKeyJoinColumn(name = "film_id")
-    private FilmText filmText;
-
-    @ManyToMany
-    @JoinTable(name = "film_actor",
-            joinColumns = @JoinColumn(name = "film_id"),
-            inverseJoinColumns = @JoinColumn(name = "actor_id"))
-    private Set<Actor> actors;
-
-    @ManyToMany
-    @JoinTable(name = "film_category",
-            joinColumns = @JoinColumn(name = "film_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Set<Category> category;
 
 }

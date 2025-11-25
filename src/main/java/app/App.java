@@ -1,6 +1,7 @@
 package app;
 
 import config.PropertiesSessionFactoryProvider;
+import dao.CustomerDAO;
 import entity.Customer;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -19,9 +20,10 @@ public class App {
             customer.setFirstName("John");
             customer.setLastName("Doe");
             customer.setActive(true);
-            customer.
-            session.save(customer);
-
+            customer.setEmail("testemail@yandex.ru");
+            CustomerDAO customerDAO = new CustomerDAO();
+            customerDAO.create(customer);
+            session.getTransaction().commit();
 
         } catch (HibernateException e) {
             System.out.println("Ошибка работы Hibernate");

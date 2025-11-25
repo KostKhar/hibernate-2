@@ -1,7 +1,6 @@
 package entity;
 
 import jakarta.persistence.*;
-import jdk.jfr.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,8 +8,6 @@ import lombok.ToString;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.Set;
 
 
 @Entity
