@@ -17,10 +17,9 @@ import java.util.Set;
 @ToString
 @Table(name = "actor", schema = "movie")
 public class Actor {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
+    @Column(name = "actor_id",  nullable = false)
     private Integer actor_id;
 
     @Column(name = "first_name", length = 45, nullable = false)
@@ -33,9 +32,4 @@ public class Actor {
     @UpdateTimestamp
     private Date lastUpdate;
 
-    @ManyToMany
-    @JoinTable(name = "film_actor",
-            joinColumns = @JoinColumn(name = "actor_id"),
-            inverseJoinColumns = @JoinColumn(name = "film_id"))
-    private Set<Film> films;
 }

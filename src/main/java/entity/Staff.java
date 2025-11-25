@@ -54,4 +54,17 @@ public class Staff {
     @UpdateTimestamp
     private LocalDateTime lastUpdate;
 
+    public Staff(String lastName, String firstName, Address address,
+                 Byte[] picture, String email, Store store,
+                 String username, String password, boolean active) {
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.address = address;
+        this.picture = picture;
+        this.email = email;
+        this.store = store;
+        this.username = username;
+        this.password = password;
+        this.active = active;
+    }
 }

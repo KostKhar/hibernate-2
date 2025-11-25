@@ -32,9 +32,9 @@ public class Address {
     @Column(name = "district", length = 20, nullable = false)
     private String district;
 
-    @OneToMany
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "city_id", nullable = false)
-    private Set<City> city;
+    private City city;
 
     @Column(name = "postal_code", length = 10)
     private String postalCode;
@@ -45,6 +45,4 @@ public class Address {
     @Column(name = "last_update", nullable = false)
     @UpdateTimestamp
     private LocalDateTime lastUpdate;
-
-
 }

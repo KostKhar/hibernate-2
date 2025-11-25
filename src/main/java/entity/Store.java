@@ -33,4 +33,9 @@ public class Store {
     @Column(name = "last_update", nullable = false)
     @UpdateTimestamp
     private LocalDateTime lastUpdate;
+
+    public Store(Staff manager_staff_id, Address address) {
+        this.manager_staff_id = manager_staff_id;
+        this.address = address;
+    }
 }

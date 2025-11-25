@@ -23,9 +23,9 @@ public class Customer {
     @Column(name = "customer_id", unique = true, nullable = false)
     private int customer_id;
 
-    @OneToMany
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "store_id", nullable = false)
-    private Set<Store> store;
+    private Store store;
 
     @Column(name = "first_name", length = 45, nullable = false)
     private String firstName;
@@ -36,9 +36,9 @@ public class Customer {
     @Column(name = "email", length = 50, nullable = false)
     private String email;
 
-    @OneToMany
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "address_id", nullable = false)
-    private Set<Address> address;
+    private Address address;
 
     @Column(name = "active", nullable = false, length = 1)
     private boolean active;
