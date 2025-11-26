@@ -10,8 +10,9 @@ public abstract class AbstractHibernateDao<T> {
     private final Class<T> clazz;
     private SessionFactory sessionFactory;
 
-    public AbstractHibernateDao(final Class<T> clazzToSet) {
+    public AbstractHibernateDao(Class<T> clazzToSet, SessionFactory sessionFactory) {
         this.clazz = clazzToSet;
+        this.sessionFactory = sessionFactory;
     }
 
     public T getById(final Long id) {

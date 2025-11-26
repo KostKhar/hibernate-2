@@ -2,11 +2,14 @@ package entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CollectionType;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @AllArgsConstructor
@@ -56,8 +59,8 @@ public class Film {
 
     @Setter
     @Getter
-    @Column(name = "rental_rate")
-    private Double rental_rate;
+    @Column(name = "rental_rate", precision = 10, scale = 2)
+    private BigDecimal rental_rate;
 
     @Setter
     @Getter
@@ -66,21 +69,35 @@ public class Film {
 
     @Column(name = "rating", columnDefinition = "ENUM('G', 'PG', 'PG-13', 'R', 'NC-17')")
     private String rating;
-    @Column(name = "special_features", columnDefinition = "ENUM('Trailers', 'Commentaries', 'Deleted Scenes', 'Behind the Scenes')")
-    private String specialFeatures;
+
+
+
+    @Setter
+    @Getter
+    @Convert(converter = SpecialFeaturesConverter.class)
+    @Column(name = "special_features", columnDefinition = "SET('Trailers','Commentaries','Deleted Scenes','Behind the Scenes')")
+    private List<SpecialFeature> specialFeatures;
+
     @Setter
     @Getter
     @Column(name = "last_update", nullable = false)
     @UpdateTimestamp
     private LocalDateTime lastUpdate;
+
+
     @OneToOne
     @PrimaryKeyJoinColumn(name = "film_id")
     private FilmText filmText;
+
+
+
     @ManyToMany
     @JoinTable(name = "film_actor",
             joinColumns = @JoinColumn(name = "film_id"),
             inverseJoinColumns = @JoinColumn(name = "actor_id"))
     private Set<Actor> actors;
+
+
     @ManyToMany
     @JoinTable(name = "film_category",
             joinColumns = @JoinColumn(name = "film_id"),
@@ -95,12 +112,5 @@ public class Film {
         this.rating = rating != null ? rating.getDbValue() : null;
     }
 
-    public SpecialFeature getSpecialFeatures() {
-        return SpecialFeature.fromDbValue(specialFeatures);
-    }
-
-    public void setSpecialFeatures(SpecialFeature specialFeatures) {
-        this.specialFeatures = rating != null ? specialFeatures.getDbValue() : null;
-    }
 
 }

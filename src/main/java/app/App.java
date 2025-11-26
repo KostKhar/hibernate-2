@@ -1,18 +1,16 @@
 package app;
 
 import config.PropertiesSessionFactoryProvider;
+import dao.AddressDAO;
 import dao.CustomerDAO;
 import dao.StoreDAO;
+import entity.Address;
 import entity.Customer;
 import entity.Store;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class App {
     public static void main(String[] args) {
@@ -20,11 +18,16 @@ public class App {
         PropertiesSessionFactoryProvider provider = new PropertiesSessionFactoryProvider();
         SessionFactory sessionFactory = provider.getSessionFactory();
 
-        try (Session session = sessionFactory.openSession()) {
+        try (Session session = sessionFactory.getCurrentSession()) {
+
             session.beginTransaction();
 
-            StoreDAO storeDAO = new StoreDAO();
+            StoreDAO storeDAO = new StoreDAO(session.getSessionFactory());
             Store store =storeDAO.findAll().get(0);
+
+            AddressDAO addressDAO = new AddressDAO(session.getSessionFactory());
+            Address address = addressDAO.findAll().get(0);
+
 
             Customer customer = new Customer();
             customer.setFirstName("John");
@@ -32,12 +35,15 @@ public class App {
             customer.setActive(true);
             customer.setEmail("testemail@yandex.ru");
             customer.setStore(store);
-            CustomerDAO customerDAO = new CustomerDAO();
+            customer.setAddress(address);
+
+            CustomerDAO customerDAO = new CustomerDAO(session.getSessionFactory());
             customerDAO.create(customer);
+
             session.getTransaction().commit();
 
         } catch (HibernateException e) {
-            System.out.println("Ошибка работы Hibernate");
+            System.out.println("Hibernate Failed: " + e.getMessage());
         }
 
     }

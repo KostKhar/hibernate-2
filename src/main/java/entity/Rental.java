@@ -40,6 +40,7 @@ public class Rental {
     @Column(name = "return_date")
     private LocalDateTime returnDate;
 
+
     @Column(name = "last_update", nullable = false)
     @UpdateTimestamp
     private LocalDateTime lastUpdate;

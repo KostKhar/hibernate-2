@@ -8,7 +8,6 @@ import lombok.ToString;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
-import java.util.Set;
 
 @Entity
 @Data

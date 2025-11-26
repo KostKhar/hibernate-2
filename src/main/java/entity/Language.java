@@ -22,7 +22,7 @@ public class Language {
     @Column(name = "language_id", unique = true, nullable = false)
     private Integer language_id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, columnDefinition = "CHAR(20)")
     private String name;
 
     @Column(name = "last_update", nullable = false)
