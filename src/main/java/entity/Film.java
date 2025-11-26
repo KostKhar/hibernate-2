@@ -71,7 +71,6 @@ public class Film {
     private String rating;
 
 
-
     @Setter
     @Getter
     @Convert(converter = SpecialFeaturesConverter.class)

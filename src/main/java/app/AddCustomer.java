@@ -12,13 +12,14 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 
-public class App {
+public class AddCustomer {
     public static void main(String[] args) {
 
         PropertiesSessionFactoryProvider provider = new PropertiesSessionFactoryProvider();
-        SessionFactory sessionFactory = provider.getSessionFactory();
 
-        try (Session session = sessionFactory.getCurrentSession()) {
+
+        try (SessionFactory sessionFactory = provider.getSessionFactory();
+                Session session = sessionFactory.getCurrentSession()) {
 
             session.beginTransaction();
 
@@ -30,10 +31,10 @@ public class App {
 
 
             Customer customer = new Customer();
-            customer.setFirstName("John");
-            customer.setLastName("Doe");
+            customer.setFirstName("John1");
+            customer.setLastName("Doe1");
             customer.setActive(true);
-            customer.setEmail("testemail@yandex.ru");
+            customer.setEmail("testemai1l@yandex.ru");
             customer.setStore(store);
             customer.setAddress(address);
 
