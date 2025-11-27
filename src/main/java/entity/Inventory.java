@@ -1,21 +1,18 @@
 package entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Table(name = "inventory", schema = "movie")
-
 public class Inventory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

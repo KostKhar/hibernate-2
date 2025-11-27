@@ -18,15 +18,14 @@ public class AddCustomer {
         PropertiesSessionFactoryProvider provider = new PropertiesSessionFactoryProvider();
 
 
-        try (SessionFactory sessionFactory = provider.getSessionFactory();
-                Session session = sessionFactory.getCurrentSession()) {
+        try (SessionFactory sessionFactory = provider.getSessionFactory()) {
 
-            session.beginTransaction();
+            sessionFactory.getCurrentSession().beginTransaction();
 
-            StoreDAO storeDAO = new StoreDAO(session.getSessionFactory());
+            StoreDAO storeDAO = new StoreDAO(sessionFactory);
             Store store =storeDAO.findAll().get(0);
 
-            AddressDAO addressDAO = new AddressDAO(session.getSessionFactory());
+            AddressDAO addressDAO = new AddressDAO(sessionFactory);
             Address address = addressDAO.findAll().get(0);
 
 
@@ -38,10 +37,10 @@ public class AddCustomer {
             customer.setStore(store);
             customer.setAddress(address);
 
-            CustomerDAO customerDAO = new CustomerDAO(session.getSessionFactory());
+            CustomerDAO customerDAO = new CustomerDAO(sessionFactory);
             customerDAO.create(customer);
 
-            session.getTransaction().commit();
+            sessionFactory.getCurrentSession().getTransaction().commit();
 
         } catch (HibernateException e) {
             System.out.println("Hibernate Failed: " + e.getMessage());
