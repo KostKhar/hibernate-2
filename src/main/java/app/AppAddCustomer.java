@@ -8,11 +8,10 @@ import entity.Address;
 import entity.Customer;
 import entity.Store;
 import org.hibernate.HibernateException;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 
-public class AddCustomer {
+public class AppAddCustomer {
     public static void main(String[] args) {
 
         PropertiesSessionFactoryProvider provider = new PropertiesSessionFactoryProvider();
@@ -27,7 +26,6 @@ public class AddCustomer {
 
             AddressDAO addressDAO = new AddressDAO(sessionFactory);
             Address address = addressDAO.findAll().get(0);
-
 
             Customer customer = new Customer();
             customer.setFirstName("John1");

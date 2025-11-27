@@ -12,6 +12,7 @@ import java.util.*;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @ToString
 @Table(name = "film", schema = "movie")
 public class Film {
