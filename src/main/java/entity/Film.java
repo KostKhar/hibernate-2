@@ -74,7 +74,7 @@ public class Film {
     @Getter
     @Convert(converter = SpecialFeaturesConverter.class)
     @Column(name = "special_features", columnDefinition = "SET('Trailers','Commentaries','Deleted Scenes','Behind the Scenes')")
-    private List<SpecialFeature> specialFeatures;
+    private Set<SpecialFeature> specialFeatures;
 
     @Setter
     @Getter

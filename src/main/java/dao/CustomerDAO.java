@@ -10,4 +10,5 @@ public class CustomerDAO extends AbstractHibernateDao<Customer> {
         super(Customer.class, sessionFactory);
     }
 
+
 }
