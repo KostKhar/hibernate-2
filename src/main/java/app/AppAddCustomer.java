@@ -22,7 +22,7 @@ public class AppAddCustomer {
             sessionFactory.getCurrentSession().beginTransaction();
 
             StoreDAO storeDAO = new StoreDAO(sessionFactory);
-            Store store =storeDAO.findAll().get(0);
+            Store store = storeDAO.findAll().get(0);
 
             AddressDAO addressDAO = new AddressDAO(sessionFactory);
             Address address = addressDAO.findAll().get(0);

@@ -19,7 +19,7 @@ public class CustomerReturnRentalFilm {
 
 
         try (SessionFactory sessionFactory = provider.getSessionFactory();
-             Session session = sessionFactory.getCurrentSession() ) {
+             Session session = sessionFactory.getCurrentSession()) {
 
             session.beginTransaction();
 
@@ -27,8 +27,8 @@ public class CustomerReturnRentalFilm {
             Customer customer = customerDAO.findAll().get(0);
 
             FilmDAO filmDAO = new FilmDAO(sessionFactory);
-            List<Film> films= filmDAO.findAll();
-            Film film = films.get(films.size()-1);
+            List<Film> films = filmDAO.findAll();
+            Film film = films.get(films.size() - 1);
 
             StoreDAO storeDAO = new StoreDAO(sessionFactory);
             Store store = storeDAO.findAll().get(0);
@@ -48,7 +48,7 @@ public class CustomerReturnRentalFilm {
                     .customer(customer)
                     .inventory(inventory)
                     .staff(staff)
-                    .rentalDate(LocalDateTime.of(2023, 3,8,14,14))
+                    .rentalDate(LocalDateTime.of(2023, 3, 8, 14, 14))
                     .build();
             rentalDAO.create(rental);
 

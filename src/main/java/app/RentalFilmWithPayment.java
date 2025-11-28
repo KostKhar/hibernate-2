@@ -20,16 +20,16 @@ public class RentalFilmWithPayment {
 
 
         try (SessionFactory sessionFactory = provider.getSessionFactory();
-             Session session = sessionFactory.getCurrentSession() ) {
+             Session session = sessionFactory.getCurrentSession()) {
 
             session.beginTransaction();
 
             CustomerDAO customerDAO = new CustomerDAO(sessionFactory);
             List<Customer> customers = customerDAO.findAll();
-            Customer customer = customers.get(customers.size()-1);
+            Customer customer = customers.get(customers.size() - 1);
 
             FilmDAO filmDAO = new FilmDAO(sessionFactory);
-            List<Film> films= filmDAO.findAll();
+            List<Film> films = filmDAO.findAll();
 
             StoreDAO storeDAO = new StoreDAO(sessionFactory);
             Store store = storeDAO.getById(1L);
@@ -60,7 +60,7 @@ public class RentalFilmWithPayment {
                     .customer(customer)
                     .inventory(inventory)
                     .staff(staff)
-                    .rentalDate(LocalDateTime.of(2023, 3,8,14,14))
+                    .rentalDate(LocalDateTime.of(2023, 3, 8, 14, 14))
                     .build();
             rentalDAO.create(rental);
 

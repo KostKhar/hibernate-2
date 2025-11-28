@@ -8,7 +8,7 @@ import java.util.List;
 
 public abstract class AbstractHibernateDao<T> {
     private final Class<T> clazz;
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
     public AbstractHibernateDao(Class<T> clazzToSet, SessionFactory sessionFactory) {
         this.clazz = clazzToSet;

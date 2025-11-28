@@ -16,7 +16,7 @@ import java.util.Date;
 public class Actor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "actor_id",  nullable = false)
+    @Column(name = "actor_id", nullable = false)
     private Integer actor_id;
 
     @Column(name = "first_name", length = 45, nullable = false)

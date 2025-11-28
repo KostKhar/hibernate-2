@@ -5,7 +5,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 
-
 public class PropertiesSessionFactoryProvider implements SessionFactoryProvider {
     private static SessionFactory sessionFactory;
 

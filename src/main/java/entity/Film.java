@@ -7,7 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -54,7 +54,7 @@ public class Film {
     @Setter
     @Getter
     @Column(name = "rental_duration")
-    private Byte rental_duration;
+    private Integer rental_duration;
 
     @Setter
     @Getter
@@ -86,7 +86,6 @@ public class Film {
     @OneToOne
     @PrimaryKeyJoinColumn(name = "film_id")
     private FilmText filmText;
-
 
 
     @ManyToMany
