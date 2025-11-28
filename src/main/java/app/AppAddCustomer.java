@@ -29,12 +29,20 @@ public class AppAddCustomer {
             Address address = addressDAO.findAll().get(0);
             Store store = storeDAO.findAll().get(0);
 
+            String email = faker.internet().emailAddress();
+            String firstName = faker.name().firstName();
+            String lastName = faker.name().lastName();
+
             CustomerService customerService = new CustomerService(customerDAO, storeDAO, addressDAO);
-            Customer customer = customerService.createNewCustomer(faker.name().firstName(),
-                    faker.name().lastName(), faker.internet().emailAddress(), store, address);
+             customerService.createNewCustomer(firstName,
+                   lastName, email, store, address);
             sessionFactory.getCurrentSession().getTransaction().commit();
 
+            sessionFactory.getCurrentSession().beginTransaction();
+            Customer customer = customerDAO.findCustomerByFullName(firstName, lastName);
             System.out.println(customer.toString());
+            sessionFactory.getCurrentSession().getTransaction().commit();
+
         } catch (HibernateException e) {
             System.out.println("Hibernate Failed: " + e.getMessage());
         }
