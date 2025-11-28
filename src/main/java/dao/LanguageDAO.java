@@ -10,10 +10,9 @@ public class LanguageDAO extends AbstractHibernateDao<Language> {
     }
 
     public Language findByName(String name) {
-        Query<Language> query = getCurrentSession()
-                .createQuery("Select distinct name FROM Language where Language.name = :name",
-                        Language.class);
-        query.setParameter("name", name);
-        return query.getSingleResult();
+        return getCurrentSession()
+                .createQuery("FROM Language where name = :name",
+                        Language.class)
+        .setParameter("name", name).uniqueResult();
     }
 }

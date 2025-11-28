@@ -9,6 +9,7 @@ import entity.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class FilmService {
@@ -28,7 +29,7 @@ public class FilmService {
     public Film createNewFilm(String title, String description,
                               LocalDate releaseDate, String language,
                               String originalLanguage, Integer rentalDuration, BigDecimal rentalRate,
-                              Integer length, String rating, Set<SpecialFeature> specialFeature,
+                              Integer length, String rating, List<SpecialFeature> specialFeature,
                               Set<Actor> actors, Set<String> categoriesName) {
 
         Set<Actor> actorsInDB = getActorsFromFilm(actors);
@@ -37,7 +38,7 @@ public class FilmService {
         Language languageInFilm = getLanguageFromFilm(language);
         Language originalLanguageInFilm = getLanguageFromFilm(originalLanguage);
 
-        Film film = Film.builder()
+        Film film =  Film.builder()
                 .title(title)
                 .description(description)
                 .release_year(releaseDate)
@@ -52,6 +53,7 @@ public class FilmService {
                 .category(categories)
                 .build();
 
+        filmDAO.create(film);
         return film;
     }
 
@@ -86,8 +88,7 @@ public class FilmService {
     private Language getLanguageFromFilm(String language) {
         Language languageInFilm = languageDAO.findByName(language);
         if (languageInFilm == null) {
-            languageInFilm.setName(language);
-            languageInFilm = languageDAO.create(languageInFilm);
+            languageInFilm = languageDAO.create(Language.builder().name(language).build());
         }
         return languageInFilm;
     }

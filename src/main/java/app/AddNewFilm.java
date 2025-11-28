@@ -15,6 +15,7 @@ import service.FilmService;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static entity.SpecialFeature.DELETED_SCENES;
@@ -37,7 +38,7 @@ public class AddNewFilm {
 
             FilmService filmService = new FilmService(filmDAO, actorDAO, categoryDAO, languageDAO);
 
-            Set<Actor> actors = new HashSet<Actor>();
+            Set<Actor> actors = new HashSet<>();
             actors.add(Actor.builder()
                     .firstName("John").lastName("Travolta").build());
             actors.add(Actor.builder()
@@ -50,12 +51,13 @@ public class AddNewFilm {
                     LocalDate.of(1997, 11, 3), "English",
                     "Russian", 2, BigDecimal.valueOf(6.97),
                     2, "G",
-                    Set.of(TRAILERS, DELETED_SCENES),
+                   List.of(TRAILERS, DELETED_SCENES),
                     actors, categories);
+
+            session.getTransaction().commit();
 
             System.out.println(film.toString());
 
-            session.getTransaction().commit();
         } catch (HibernateException e) {
             System.out.println("Hibernate Failed: " + e.getMessage());
         }

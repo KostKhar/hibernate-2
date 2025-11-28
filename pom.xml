@@ -44,6 +44,11 @@
             <artifactId>p6spy</artifactId>
             <version>3.9.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>1.0.2</version>
+        </dependency>
 
         <!-- SLF4J + Log4j2 -->
         <dependency>

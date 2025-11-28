@@ -7,13 +7,13 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString
 @Table(name = "film", schema = "movie")
 public class Film {
 
@@ -74,7 +74,7 @@ public class Film {
     @Getter
     @Convert(converter = SpecialFeaturesConverter.class)
     @Column(name = "special_features", columnDefinition = "SET('Trailers','Commentaries','Deleted Scenes','Behind the Scenes')")
-    private Set<SpecialFeature> specialFeatures;
+    private List<SpecialFeature> specialFeatures;
 
     @Setter
     @Getter
@@ -107,6 +107,10 @@ public class Film {
 
     public void setRating(Rating rating) {
         this.rating = rating != null ? rating.getDbValue() : null;
+    }
+
+    public String toString(){
+        return getTitle() + " " + getDescription();
     }
 
 
