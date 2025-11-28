@@ -43,6 +43,9 @@ public class AppAddCustomer {
             System.out.println(customer.toString());
             sessionFactory.getCurrentSession().getTransaction().commit();
 
+
+
+
         } catch (HibernateException e) {
             System.out.println("Hibernate Failed: " + e.getMessage());
         }
