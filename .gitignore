@@ -25,3 +25,8 @@ replay_pid*
 .idea
 hibernate-2.iml
 target
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store
