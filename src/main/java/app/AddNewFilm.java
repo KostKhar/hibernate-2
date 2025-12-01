@@ -48,15 +48,18 @@ public class AddNewFilm {
 
 
             Film film = filmService.createNewFilm("Без лица", "На карусели.... ",
-                    LocalDate.of(1997, 11, 3), "English",
+                    1997, "English",
                     "Russian", 2, BigDecimal.valueOf(6.97),
                     2, "G",
                    List.of(TRAILERS, DELETED_SCENES),
                     actors, categories);
 
-            session.getTransaction().commit();
+            Film film1 = filmDAO.getById(film.getFilm_id());
 
-            System.out.println(film.toString());
+            System.out.println(film1.toString());
+            System.out.println(film1.getActors().toString());
+
+            session.getTransaction().commit();
 
         } catch (HibernateException e) {
             System.out.println("Hibernate Failed: " + e.getMessage());

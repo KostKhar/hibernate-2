@@ -27,7 +27,7 @@ public class FilmService {
     }
 
     public Film createNewFilm(String title, String description,
-                              LocalDate releaseDate, String language,
+                              Integer releaseDate, String language,
                               String originalLanguage, Integer rentalDuration, BigDecimal rentalRate,
                               Integer length, String rating, List<SpecialFeature> specialFeature,
                               Set<Actor> actors, Set<String> categoriesName) {

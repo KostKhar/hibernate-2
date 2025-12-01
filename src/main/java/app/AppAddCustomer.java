@@ -33,7 +33,7 @@ public class AppAddCustomer {
             String firstName = faker.name().firstName();
             String lastName = faker.name().lastName();
 
-            CustomerService customerService = new CustomerService(customerDAO, storeDAO, addressDAO);
+            CustomerService customerService = new CustomerService(customerDAO);
              customerService.createNewCustomer(firstName,
                    lastName, email, store, address);
             sessionFactory.getCurrentSession().getTransaction().commit();

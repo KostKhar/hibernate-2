@@ -22,7 +22,7 @@ public class Film {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "film_id", unique = true, nullable = false)
-    private int film_id;
+    private Integer film_id;
 
     @Setter
     @Getter
@@ -36,8 +36,8 @@ public class Film {
 
     @Setter
     @Getter
-    @Column(name = "release_year")
-    private LocalDate release_year;
+    @Column(name = "release_year", columnDefinition = "YEAR")
+    private Integer release_year;
 
     @Setter
     @Getter
@@ -87,7 +87,7 @@ public class Film {
     @PrimaryKeyJoinColumn(name = "film_id")
     private FilmText filmText;
 
-
+    @Getter
     @ManyToMany
     @JoinTable(name = "film_actor",
             joinColumns = @JoinColumn(name = "film_id"),

@@ -15,7 +15,7 @@ public abstract class AbstractHibernateDao<T> {
         this.sessionFactory = sessionFactory;
     }
 
-    public T getById(final Long id) {
+    public T getById(final Integer id) {
         return getCurrentSession().get(clazz, id);
     }
 
@@ -43,7 +43,7 @@ public abstract class AbstractHibernateDao<T> {
         getCurrentSession().remove(entity);
     }
 
-    public void deleteById(final long entityId) {
+    public void deleteById(final Integer entityId) {
         final T entity = getById(entityId);
         delete(entity);
     }

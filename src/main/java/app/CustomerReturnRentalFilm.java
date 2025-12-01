@@ -6,6 +6,8 @@ import entity.*;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import service.InventoryService;
+import service.RentalService;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -34,26 +36,19 @@ public class CustomerReturnRentalFilm {
             Store store = storeDAO.findAll().get(0);
 
             InventoryDAO inventoryDAO = new InventoryDAO(sessionFactory);
-            Inventory inventory = Inventory.builder()
-                    .film(film)
-                    .store(store)
-                    .build();
-            inventoryDAO.create(inventory);
+            Inventory inventory = new InventoryService(inventoryDAO).createInventory( film, store);
 
             StaffDAO staffDAO = new StaffDAO(sessionFactory);
-            Staff staff = staffDAO.getById(1L);
+            Staff staff = staffDAO.getById(1);
 
             RentalDAO rentalDAO = new RentalDAO(sessionFactory);
-            Rental rental = Rental.builder()
-                    .customer(customer)
-                    .inventory(inventory)
-                    .staff(staff)
-                    .rentalDate(LocalDateTime.of(2023, 3, 8, 14, 14))
-                    .build();
-            rentalDAO.create(rental);
+            Rental rental =  new RentalService(rentalDAO).buildRental(customer, inventory,  staff);
 
             rental.setReturnDate(now());
-            rentalDAO.update(rental);
+            Rental rentalToUpdate = rentalDAO.update(rental);
+
+            Rental rentalAfterUodate = rentalDAO.getById(rentalToUpdate.getRental_id());
+            System.out.printf(rentalAfterUodate.toString());
 
             session.getTransaction().commit();
         } catch (HibernateException e) {

@@ -6,6 +6,8 @@ import entity.*;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import service.InventoryService;
+import service.RentalService;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -32,7 +34,7 @@ public class RentalFilmWithPayment {
             List<Film> films = filmDAO.findAll();
 
             StoreDAO storeDAO = new StoreDAO(sessionFactory);
-            Store store = storeDAO.getById(1L);
+            Store store = storeDAO.getById(1);
 
             InventoryDAO inventoryDAO = new InventoryDAO(sessionFactory);
             List<Film> filmsInInventory = inventoryDAO.findFilmsInInventory();
@@ -46,23 +48,13 @@ public class RentalFilmWithPayment {
                 return availableFilms.isEmpty() ? null : availableFilms.get(0);
             });
 
-            Inventory inventory = Inventory.builder()
-                    .film(film)
-                    .store(store)
-                    .build();
-            inventoryDAO.create(inventory);
+            Inventory inventory = new InventoryService(inventoryDAO).createInventory( film, store);
 
             StaffDAO staffDAO = new StaffDAO(sessionFactory);
-            Staff staff = staffDAO.getById(1L);
+            Staff staff = staffDAO.getById(1);
 
             RentalDAO rentalDAO = new RentalDAO(sessionFactory);
-            Rental rental = Rental.builder()
-                    .customer(customer)
-                    .inventory(inventory)
-                    .staff(staff)
-                    .rentalDate(LocalDateTime.of(2023, 3, 8, 14, 14))
-                    .build();
-            rentalDAO.create(rental);
+            Rental rental = new RentalService(rentalDAO).buildRental(customer, inventory,  staff);
 
             Payment payment = Payment.builder()
                     .customer(customer)
@@ -73,7 +65,10 @@ public class RentalFilmWithPayment {
                     .build();
 
             PaymentDAO paymentDAO = new PaymentDAO(sessionFactory);
-            paymentDAO.create(payment);
+            Payment payToCreate = paymentDAO.create(payment);
+
+            Payment payAfterCreate = paymentDAO.getById(payToCreate.getPayment_id());
+            System.out.println(payAfterCreate.toString());
 
             session.getTransaction().commit();
         } catch (HibernateException e) {

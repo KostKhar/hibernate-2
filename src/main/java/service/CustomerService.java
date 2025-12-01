@@ -8,14 +8,9 @@ import entity.Store;
 
 public class CustomerService {
     private final CustomerDAO customerDAO;
-    private final StoreDAO storeDAO;
-    private final AddressDAO addressDAO;
 
-    public CustomerService(CustomerDAO customerDAO, StoreDAO storeDAO,
-                           AddressDAO addressDAO) {
+    public CustomerService(CustomerDAO customerDAO) {
         this.customerDAO = customerDAO;
-        this.storeDAO = storeDAO;
-        this.addressDAO = addressDAO;
     }
 
     public Customer createNewCustomer(String firstName, String lastName,  String email,

@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString
 @Table(name = "payment", schema = "movie")
 public class Payment {
     @Id
@@ -43,4 +42,8 @@ public class Payment {
     @Column(name = "last_update", nullable = false)
     @UpdateTimestamp
     private LocalDateTime lastUpdate;
+
+    public String toString(){
+        return payment_id +" " + amount + " " + customer.getCustomer_id() + " " + staff.getStaff_id() + " " + rental.getRental_id();
+    }
 }
